@@ -76,7 +76,7 @@ def rotate_square_matrix(mat):
 
 def painting_sleev(outIm, y_loc, x_loc, ind):
     if ((np.sum(outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] * filters[ind]) == 1) and (
-                np.sum(outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] * filters[ind + 4]) == 0)):
+        np.sum(outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] * filters[ind + 4]) == 0)):
         outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] = np.zeros([primitiveSize, primitiveSize])
         if ind == 0:
             outIm = painting_sleev(outIm, y_loc, x_loc + pathWidth, ind)
@@ -99,24 +99,22 @@ memoryCapacity = 64
 if __name__ == '__main__':
 
     img = plt.imread('labirint.png')
-    img = intoGrayScale(img)
+    gray = intoGrayScale(img)
     plt.figure()
-    plt.imshow(img)
+    plt.imshow(gray)
     plt.title('initial image')
 
-    img = binary(img)
+    binImg = binary(gray)
     plt.figure()
-    plt.imshow(img)
+    plt.imshow(binImg)
     plt.title('binary image')
     plt.show()
 
-    initialIm = np.copy(img)
-
     pathWidth = 0
-    img = ndimage.grey_closing(ndimage.grey_erosion(img, size=(3, 3)), size=(15, 15))
-    # outIm = np.copy(img)
+    img = ndimage.grey_closing(ndimage.grey_erosion(binImg, size=(3, 3)), size=(15, 15))
+    outIm = np.copy(img)
 
-    for i in range(0, shotSize[0] - memoryCapacity, int(memoryCapacity / 8)):  # цикл по блокам из-за ограничения памяти
+    for i in range(0, shotSize[0] - memoryCapacity, int(memoryCapacity/8)):  # цикл по блокам из-за ограничения памяти
         # формируем список примитивов
         if i == 0:
             pathWidth = np.count_nonzero(img[0])
@@ -135,20 +133,20 @@ if __name__ == '__main__':
                 filters[f] = rotate_square_matrix(filters[f - 1])
                 filters[4 + f] = rotate_square_matrix(filters[4 + f - 1])
 
-        for y in range(0, memoryCapacity - primitiveSize, 1):  # цикл по строкам в блоке
-            for x in range(0, imSize[1] - primitiveSize, 1):  # цикл по пикселям в строке
+        for y in range(0, memoryCapacity - primitiveSize,1):  # цикл по строкам в блоке
+            for x in range(0,imSize[1] - primitiveSize,1):  # цикл по пикселям в строке
                 # area covered by filter
-                local_area = img[i + y:i + y + primitiveSize, x: x + primitiveSize]
+                local_area = outIm[i+y:i+y + primitiveSize, x: x + primitiveSize]
                 for ind in range(4):
                     if ((np.sum(local_area * filters[ind]) == 1) and (np.sum(local_area * filters[ind + 4]) == 0)):
-                        img = painting_sleev(img, i + y, x, ind)
+                        outIm = painting_sleev(outIm, i + y, x, ind)
                         break
                     else:
-                        img[i + y: i + y + primitiveSize, x: x + primitiveSize] = img[i + y:i + y + primitiveSize,
-                                                                                  x:x + primitiveSize]
+                        outIm[i + y: i + y + primitiveSize, x: x + primitiveSize] = outIm[i + y:i + y + primitiveSize,
+                                                                                    x:x + primitiveSize]
 
     plt.subplot(1, 2, 2)
-    plt.imshow((img + initialIm) / 2)
+    plt.imshow((outIm+img)/2)
     plt.subplot(1, 2, 1)
-    plt.imshow(initialIm)
+    plt.imshow(binImg)
     plt.show()
