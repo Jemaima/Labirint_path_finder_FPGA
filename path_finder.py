@@ -4,11 +4,13 @@ import scipy
 from scipy import ndimage
 
 
-def intoGrayScale(im):
+def intoGrayScale(im, add_noise=False):
     """ Формируем черно-белое изображение """
     grayscaling = lambda x: np.sqrt(np.sum(np.square(x[:-1])))
     greyIm = np.array(
-        [np.array([grayscaling(a) for a in row]) for row in img]) + (np.random.normal(0, 0.5, im.shape[:-1]))
+        [np.array([grayscaling(a) for a in row]) for row in img])
+    if add_noise:
+        greyIm = greyIm + (np.random.normal(0, 0.3, im.shape[:-1]))
     return greyIm
 
 
@@ -92,31 +94,38 @@ def painting_sleev(outIm, y_loc, x_loc, ind):
     return outIm
 
 
-imSize = [256, 256]
-shotSize = [256, 256]
 memoryCapacity = 64
+side_pad = 100
+scan_step = 2
+fill_step = 1
 
 if __name__ == '__main__':
 
-    img = plt.imread('labirint.png')
-    img = intoGrayScale(img)
+    img = plt.imread('labirint3.png')
+    img = intoGrayScale(img, True)
     plt.figure()
+    plt.subplot(3, 1, 1)
     plt.imshow(img)
     plt.title('initial image')
 
     img = binary(img)
-    plt.figure()
+    plt.subplot(3, 1, 2)
     plt.imshow(img)
     plt.title('binary image')
-    plt.show()
 
     initialIm = np.copy(img)
 
+    img = ndimage.median_filter(img, (3, 3))
+    plt.subplot(3, 1, 3)
+    plt.imshow(img)
+    plt.title('After median filtration image')
+    plt.show()
+
     pathWidth = 0
-    img = ndimage.grey_closing(ndimage.grey_erosion(img, size=(3, 3)), size=(15, 15))
     # outIm = np.copy(img)
 
-    for i in range(0, shotSize[0] - memoryCapacity, int(memoryCapacity / 8)):  # цикл по блокам из-за ограничения памяти
+    for i in range(0, img.shape[0] - memoryCapacity,
+                   int(memoryCapacity / 4)):  # цикл по блокам из-за ограничения памяти
         # формируем список примитивов
         if i == 0:
             pathWidth = np.count_nonzero(img[0])
@@ -135,8 +144,20 @@ if __name__ == '__main__':
                 filters[f] = rotate_square_matrix(filters[f - 1])
                 filters[4 + f] = rotate_square_matrix(filters[4 + f - 1])
 
-        for y in range(0, memoryCapacity - primitiveSize, 1):  # цикл по строкам в блоке
-            for x in range(0, imSize[1] - primitiveSize, 1):  # цикл по пикселям в строке
+
+        for y in range(0, memoryCapacity - primitiveSize, scan_step):  # цикл по строкам в блоке
+            for x in range(side_pad, img.shape[1] - primitiveSize - side_pad, scan_step):  # цикл по пикселям в строке
+                # area covered by filter
+                local_area = img[i + y:i + y + primitiveSize, x: x + primitiveSize]
+                for ind in range(4):
+                    if ((np.sum(local_area * filters[ind]) == 1) and (np.sum(local_area * filters[ind + 4]) == 0)):
+                        img = painting_sleev(img, i + y, x, ind)
+                        break
+                    else:
+                        img[i + y: i + y + primitiveSize, x: x + primitiveSize] = img[i + y:i + y + primitiveSize, x:x + primitiveSize]
+
+        for y in range(0, memoryCapacity - primitiveSize, scan_step):  # цикл по строкам в блоке
+            for x in range(side_pad, img.shape[1] - primitiveSize - side_pad, scan_step):  # цикл по пикселям в строке
                 # area covered by filter
                 local_area = img[i + y:i + y + primitiveSize, x: x + primitiveSize]
                 for ind in range(4):
