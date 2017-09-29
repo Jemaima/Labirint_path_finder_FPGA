@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
-from scipy import ndimage
+import time
 
 
 def intoGrayScale(im, add_noise=False):
@@ -12,6 +11,17 @@ def intoGrayScale(im, add_noise=False):
     if add_noise:
         greyIm = greyIm + (np.random.normal(0, 0.1, im.shape[:-1]))
     return greyIm
+
+
+def median_binary_filter(img, size=(3, 3)):
+    img_f = np.zeros([img.shape[0],img.shape[1]], np.int32)
+    for i in range(0, img.shape[0] - size[0], 1):
+        for j in range(0, img.shape[1] - size[1], 1):
+            if np.sum(img[i:i + size[0], j : j + size[1]]) > 0.8 * size[0] * size[1]:
+                img_f[i:i + size[0], j : j + size[1]] = np.ones(size, np.int32)
+            else:
+                img_f[i:i + size[0], j : j + size[1]] = np.zeros(size, np.int32)
+    return img_f
 
 
 def check_filteres():
@@ -95,13 +105,14 @@ def painting_sleev(outIm, y_loc, x_loc, ind):
 
 
 memoryCapacity = 64
-side_pad = 100
+side_pad = 150
+batch_step = 8
 scan_step = 2
-fill_step = 1
+fill_step = 2
 
 if __name__ == '__main__':
 
-    img = plt.imread('shot4.png')
+    img = plt.imread('shot2.png')
     img = intoGrayScale(img, False)
     plt.figure()
     plt.subplot(2, 2, 1)
@@ -109,14 +120,17 @@ if __name__ == '__main__':
     plt.title('initial image')
     initialIm = np.copy(img)
 
+    start_time = time.time()
+
     img = binary(img, 0.98)
     plt.subplot(2, 2, 2)
     plt.imshow(img)
     plt.title('binary image')
 
+    img = median_binary_filter(img, (3,3))
+    preprocessing_time = time.time()-start_time
+    print('binarization and filtration takes: ' , str(preprocessing_time), 's')
 
-
-    img = ndimage.median_filter(img, (3, 3))
     plt.subplot(2, 1, 2)
     plt.imshow(img)
     plt.title('After median filtration image')
@@ -126,7 +140,7 @@ if __name__ == '__main__':
     # outIm = np.copy(img)
 
     for i in range(0, img.shape[0] - memoryCapacity,
-                   int(memoryCapacity / 8)):  # цикл по блокам из-за ограничения памяти
+                   batch_step):  # цикл по блокам из-за ограничения памяти
         # формируем список примитивов
         if i == 0:
             pathWidth = np.count_nonzero(img[0])
@@ -156,7 +170,7 @@ if __name__ == '__main__':
                     else:
                         img[i + y: i + y + primitiveSize, x: x + primitiveSize] = img[i + y:i + y + primitiveSize,
                                                                                   x:x + primitiveSize]
-
+    print('finding path takes: ', str(time.time() - preprocessing_time - start_time), 's')
     plt.subplot(1, 2, 2)
     plt.imshow((img + initialIm) / 2)
     plt.subplot(1, 2, 1)
