@@ -24,7 +24,7 @@ def median_binary_filter(img, size=(3, 3)):
     return img_f
 
 
-def check_filteres():
+def check_filteres(filters):
     n = 0
     plt.subplot(4, 2, 1)
     plt.imshow(filters[n])
@@ -86,18 +86,19 @@ def rotate_square_matrix(mat):
         return mat2
 
 
-def painting_sleev(outIm, y_loc, x_loc, ind):
+def painting_sleev(outIm, pathWidth, filters, y_loc, x_loc, ind):
+    primitiveSize = filters[0].shape[0]
     if ((np.sum(outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] * filters[ind]) == 1) and (
                 np.sum(outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] * filters[ind + 4]) == 0)):
         outIm[y_loc: y_loc + primitiveSize, x_loc: x_loc + primitiveSize] = np.zeros([primitiveSize, primitiveSize])
         if ind == 0:
-            outIm = painting_sleev(outIm, y_loc, x_loc + pathWidth, ind)
+            outIm = painting_sleev(outIm, pathWidth,  filters, y_loc, x_loc + pathWidth, ind)
         elif ind == 1:
-            outIm = painting_sleev(outIm, y_loc + pathWidth, x_loc, ind)
+            outIm = painting_sleev(outIm, pathWidth,  filters, y_loc + pathWidth, x_loc, ind)
         elif ind == 2:
-            outIm = painting_sleev(outIm, y_loc, x_loc - pathWidth, ind)
+            outIm = painting_sleev(outIm, pathWidth,  filters, y_loc, x_loc - pathWidth, ind)
         elif ind == 3:
-            outIm = painting_sleev(outIm, y_loc - pathWidth, x_loc, ind)
+            outIm = painting_sleev(outIm, pathWidth,  filters, y_loc - pathWidth, x_loc, ind)
         else:
             outIm = outIm
 
@@ -112,7 +113,7 @@ fill_step = 2
 
 if __name__ == '__main__':
 
-    img = plt.imread('shot2.png')
+    img = plt.imread('shots\shot4.png')
     img = intoGrayScale(img, False)
     plt.figure()
     plt.subplot(2, 2, 1)
@@ -129,13 +130,14 @@ if __name__ == '__main__':
 
     img = median_binary_filter(img, (3,3))
     preprocessing_time = time.time()-start_time
-    print('binarization and filtration takes: ' , str(preprocessing_time), 's')
+    print('binarization and filtration takes: ', str(preprocessing_time), 's')
 
     plt.subplot(2, 1, 2)
     plt.imshow(img)
     plt.title('After median filtration image')
     plt.show()
 
+    start_time = time.time()
     pathWidth = 0
     # outIm = np.copy(img)
 
@@ -165,12 +167,12 @@ if __name__ == '__main__':
                 local_area = img[i + y:i + y + primitiveSize, x: x + primitiveSize]
                 for ind in range(4):
                     if ((np.sum(local_area * filters[ind]) == 1) and (np.sum(local_area * filters[ind + 4]) == 0)):
-                        img = painting_sleev(img, i + y, x, ind)
+                        img = painting_sleev(img, pathWidth,  filters, i + y, x, ind)
                         break
                     else:
                         img[i + y: i + y + primitiveSize, x: x + primitiveSize] = img[i + y:i + y + primitiveSize,
                                                                                   x:x + primitiveSize]
-    print('finding path takes: ', str(time.time() - preprocessing_time - start_time), 's')
+    print('finding path takes: ', str(time.time() - start_time), 's')
     plt.subplot(1, 2, 2)
     plt.imshow((img + initialIm) / 2)
     plt.subplot(1, 2, 1)
