@@ -39,7 +39,8 @@ def img_preprocessing(img):
 
 
 def check_straight(local_area, p_w):
-    if (sum(local_area[center - p_w, center - p_w:center + p_w]) == 0 and sum(local_area[center + p_w, center - p_w:center + p_w]) == 0) or (
+    if (sum(local_area[center - p_w, center - p_w:center + p_w]) == 0 and sum(
+            local_area[center + p_w, center - p_w:center + p_w]) == 0) or (
                     sum(
                         local_area[center - p_w:center + p_w, center - p_w]) == 0 and sum(
                 local_area[center - p_w:center + p_w, center + p_w]) == 0):
@@ -49,7 +50,7 @@ def check_straight(local_area, p_w):
 
 
 def check_possible_direction(local_area, cur_dir, p_w, possible_dirs=[1, 1, 1, 1]):
-    if sum(sum(local_area * f_node2)) == 0 or local_area[center,center]==0:
+    if sum(sum(local_area * f_node2)) == 0 or local_area[center, center] == 0:
         try:
             if all(define_next_point(local_area, dirs[cur_dir - 1], p_w) != [0, 0]) and possible_dirs[
                 dirs[cur_dir - 1]] != 0:
@@ -135,6 +136,15 @@ def binary(im, treshold=0.5):
     return binaryIm
 
 
+def reset():
+    global ENABLE, path, pathWidth, pathWidth_bottom, n_shot
+    ENABLE = False
+    pathWidth = 0
+    pathWidth_bottom = 0
+    path = np.ones([50, 7], dtype=np.int16)
+    n_shot = 0
+
+
 ENABLE = False  # true if all labyrinth parameters defined and img is static
 FOUND = False
 MEMORY_CAPACITY = 31
@@ -169,17 +179,19 @@ if __name__ == '__main__':
                     if y_block == 0 and img_out[0, x_block + center] == 1:
                         pathWidth += 1
                         path[0] = [center, x_block + center - (int)(pathWidth / 2), 0, 1, 1, 1, 1]
-                        path[1] = path[0]
 
                     elif y_block == img_out.shape[0] - MEMORY_CAPACITY - 1 and img_out[
                                 y_block + center, x_block + center] == 1:
                         pathWidth_bottom += 1
+
                     else:
                         pass
             if check_straight(
-                img_out[path[n_nodes][0]-center:path[n_nodes][0]+center-1, path[n_nodes][1]-center:path[n_nodes][1]+center-1], pathWidth):
+                    img_out[path[n_nodes][0] - center:path[n_nodes][0] + center - 1,
+                    path[n_nodes][1] - center:path[n_nodes][1] + center - 1], pathWidth):
 
                 n_nodes += 1
+                path[1] = path[0]
                 if np.abs(pathWidth - pathWidth_bottom) < 4 and pathWidth != 0 and (
                                 pathWidth * 2 + 1) < MEMORY_CAPACITY:
                     pathWidth = int((pathWidth + pathWidth_bottom) / 2)
@@ -202,14 +214,18 @@ if __name__ == '__main__':
                 else:
                     pass
 
-
         # ====================================
         # If parameters defined, try to STEP
         # ====================================
         else:
+            localStart = path[0][:2];
+            localPathWidth = 0;
             # Scan over the image, paint lines between nodes and find last point
             for y_block in range(0, img.shape[0] - MEMORY_CAPACITY):  # цикл по блокам из-за ограничения памяти
                 for x_block in range(0, img.shape[1] - MEMORY_CAPACITY):
+                    if y_block == 0 and img_out[0, x_block + center] == 1:
+                        localPathWidth += 1
+                        localStart = [center, x_block + center - (int)(pathWidth / 2)]
 
                     # if in last path point
                     if all([y_block + center, x_block + center] == path[n_nodes][:2]):
@@ -217,7 +233,8 @@ if __name__ == '__main__':
                         local_area = img_out[y_block:y_block + MEMORY_CAPACITY, x_block: x_block + MEMORY_CAPACITY]
 
                         # Check deadend
-                        if check_possible_direction(local_area, path[n_nodes][2], pathWidth, path[n_nodes][3:]) == -1 or local_area[center,center]==0:
+                        if check_possible_direction(local_area, path[n_nodes][2], pathWidth, path[n_nodes][3:]) == -1 or \
+                                        local_area[center, center] == 0:
                             path[n_nodes] = path[n_nodes - 1]
                             n_nodes -= 1
                             path[n_nodes + 2] = [1] * 7
@@ -227,9 +244,9 @@ if __name__ == '__main__':
                             path[n_nodes][3:] = [1, 1, 1, 1]
                         elif sum(sum(local_area * f_node2)) != 0:
                             path[n_nodes][path[n_nodes][2] % 2] = \
-                            (define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
-                                [y_block, x_block]))[
-                                path[n_nodes][2] % 2]
+                                (define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
+                                    [y_block, x_block]))[
+                                    path[n_nodes][2] % 2]
                             path[n_nodes][3:] = [1, 1, 1, 1]
 
                         else:
@@ -243,6 +260,9 @@ if __name__ == '__main__':
                             # path[n_nodes][3:] = [1, 1, 1, 1]
                     if FOUND:
                         break
+                if sum(localStart - path[0][:2]) > 3:
+                    reset()
+
                 if FOUND:
                     FOUND = False
                     break
@@ -259,8 +279,3 @@ if __name__ == '__main__':
         plt.pause(0.001)
 
     print('finding path takes: ', str(time.time() - start_time), 's')
-    # plt.subplot(1, 2, 2)
-    # plt.imshow((img + initialIm) / 2)
-    # plt.subplot(1, 2, 1)
-    # plt.imshow(initialIm)
-    # plt.show()
