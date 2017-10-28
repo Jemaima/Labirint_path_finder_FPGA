@@ -49,7 +49,7 @@ def check_straight(local_area, p_w):
         return False
 
 
-def check_possible_direction(local_area, cur_dir, p_w, possible_dirs=[1, 1, 1, 1]):
+def check_possible_direction(local_area, cur_dir, p_w, f_node2, possible_dirs=[1, 1, 1, 1]):
     if sum(sum(local_area * f_node2)) == 0 or local_area[center, center] == 0:
         try:
             if all(define_next_point(local_area, dirs[cur_dir - 1], p_w) != [0, 0]) and possible_dirs[
@@ -107,6 +107,16 @@ def define_next_point(local_area, dir, p_w):
         return np.array(pos)
 
 
+def reset():
+    global ENABLE, path, pathWidth, pathWidth_bottom, n_shot, n_nodes
+    ENABLE = False
+    pathWidth = 0
+    pathWidth_bottom = 0
+    path = np.ones([50, 7], dtype=np.int16)
+    n_nodes = 0
+    n_shot = 0
+
+
 def intoGrayScale(im, add_noise=False):
     """ Формируем черно-белое изображение """
     grayscaling = lambda x: np.sqrt(np.sum(np.square(x[:-1])))
@@ -136,13 +146,6 @@ def binary(im, treshold=0.5):
     return binaryIm
 
 
-def reset():
-    global ENABLE, path, pathWidth, pathWidth_bottom, n_shot
-    ENABLE = False
-    pathWidth = 0
-    pathWidth_bottom = 0
-    path = np.ones([50, 7], dtype=np.int16)
-    n_shot = 0
 
 
 ENABLE = False  # true if all labyrinth parameters defined and img is static
@@ -167,7 +170,7 @@ if __name__ == '__main__':
     pathWidth_bottom = 0
     n_shot = 0
 
-    while n_shot <= 10000:
+    while n_shot <= 100000:
         img_out = np.array(img).copy()
         # ====================================
         # Define labyrinth parameters
@@ -233,7 +236,7 @@ if __name__ == '__main__':
                         local_area = img_out[y_block:y_block + MEMORY_CAPACITY, x_block: x_block + MEMORY_CAPACITY]
 
                         # Check deadend
-                        if check_possible_direction(local_area, path[n_nodes][2], pathWidth, path[n_nodes][3:]) == -1 or \
+                        if check_possible_direction(local_area, path[n_nodes][2], pathWidth, f_node2, path[n_nodes][3:]) == -1 or \
                                         local_area[center, center] == 0:
                             path[n_nodes] = path[n_nodes - 1]
                             n_nodes -= 1
@@ -254,7 +257,7 @@ if __name__ == '__main__':
                             n_nodes += 1
                             path[n_nodes][:4] = path[n_nodes - 1][:4]
                             path[n_nodes][2], path[n_nodes][:2] = check_possible_direction(local_area, path[n_nodes][2],
-                                                                                           pathWidth, path[n_nodes][3:])
+                                                                                           pathWidth, f_node2, path[n_nodes][3:])
                             path[n_nodes][:2] += np.array([y_block, x_block])
                             path[n_nodes - 1][3 + path[n_nodes][2]] = 0
                             # path[n_nodes][3:] = [1, 1, 1, 1]
@@ -266,6 +269,9 @@ if __name__ == '__main__':
                 if FOUND:
                     FOUND = False
                     break
+
+        if (img.shape[0] - path[n_nodes, 0]) < pathWidth:
+            reset()
 
         plt.clf()
 
