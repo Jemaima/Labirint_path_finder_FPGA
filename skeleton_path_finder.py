@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+from scipy.ndimage.morphology import binary_erosion
 
 plt.ion()
 dirs = [0, 1, 2, 3]
-
 
 # 0 - down
 # 1 - left
@@ -25,7 +25,7 @@ def img_preprocessing(img):
     plt.subplot(1, 2, 2)
     plt.imshow(img)
     plt.title('binary image')
-
+    # img = binary_erosion(img).astype(img.dtype)
     # img = median_binary_filter(img, (3,3))
     # preprocessing_time = time.time()-start_time
     # print('binarization and filtration takes: ', str(preprocessing_time), 's')
@@ -38,83 +38,15 @@ def img_preprocessing(img):
     return img
 
 
-def check_straight(local_area, p_w):
-    if (sum(local_area[center - p_w, center - p_w:center + p_w]) == 0 and sum(
-            local_area[center + p_w, center - p_w:center + p_w]) == 0) or (
-                    sum(
-                        local_area[center - p_w:center + p_w, center - p_w]) == 0 and sum(
-                local_area[center - p_w:center + p_w, center + p_w]) == 0):
-        return True
-    else:
-        return False
-
-
-def check_possible_direction(local_area, cur_dir, p_w, f_node2, possible_dirs=[1, 1, 1, 1]):
-    if sum(sum(local_area * f_node2)) == 0 or local_area[center, center] == 0:
-        try:
-            if all(define_next_point(local_area, dirs[cur_dir - 1], p_w) != [0, 0]) and possible_dirs[
-                dirs[cur_dir - 1]] != 0:
-                return dirs[cur_dir - 1], define_next_point(local_area, dirs[cur_dir - 1], p_w)
-            elif all(define_next_point(local_area, dirs[cur_dir], p_w) != [0, 0]) and possible_dirs[dirs[cur_dir]] != 0:
-                return dirs[cur_dir], define_next_point(local_area, dirs[cur_dir], p_w)
-            elif all(define_next_point(local_area, dirs[cur_dir + 1], p_w) != [0, 0]) and possible_dirs[
-                dirs[cur_dir + 1]] != 0:
-                return dirs[cur_dir + 1], define_next_point(local_area, dirs[cur_dir + 1], p_w)
+def median_binary_filter(img, size=(3, 3)):
+    img_f = np.zeros([img.shape[0],img.shape[1]], np.int32)
+    for i in range(0, img.shape[0] - size[0], 1):
+        for j in range(0, img.shape[1] - size[1], 1):
+            if np.sum(img[i:i + size[0], j : j + size[1]]) > 0.8 * size[0] * size[1]:
+                img_f[i:i + size[0], j : j + size[1]] = np.ones(size, np.int32)
             else:
-                return -1
-        except:
-            if all(define_next_point(local_area, dirs[cur_dir - 1], p_w) != [0, 0]) and possible_dirs[
-                dirs[cur_dir - 1]] != 0:
-                return dirs[cur_dir - 1], define_next_point(local_area, dirs[cur_dir - 1], p_w)
-            elif all(define_next_point(local_area, dirs[cur_dir], p_w) != [0, 0]) and possible_dirs[dirs[cur_dir]] != 0:
-                return dirs[cur_dir], define_next_point(local_area, dirs[cur_dir], p_w)
-            elif all(define_next_point(local_area, dirs[cur_dir - 3], p_w) != [0, 0]) and possible_dirs[
-                dirs[cur_dir - 3]] != 0:
-                return dirs[cur_dir - 3], define_next_point(local_area, dirs[cur_dir - 3], p_w)
-            else:
-                return -1
-
-    else:
-        return dirs[cur_dir], define_next_point(local_area, dirs[cur_dir - 1], p_w)
-
-
-def define_next_point(local_area, dir, p_w):
-    width = 0
-    pos = [0, 0]
-    if dir == 0:  # down
-        for i in range(center - int(p_w), center + int(p_w)):
-            if local_area[center + int(p_w), i] == 1:
-                width += 1
-                pos = [center + int(p_w / step_coef) + 1, i - int(width / 2) + 1]
-    elif dir == 1:  # left
-        for i in range(center - int(p_w), center + int(p_w)):
-            if local_area[i, center - int(p_w)] == 1:
-                width += 1
-                pos = [i - int(width / 2), center - int(p_w / step_coef)]
-    elif dir == 2:  # up
-        for i in range(center - int(p_w), center + int(p_w)):
-            if local_area[center - int(p_w), i] == 1:
-                width += 1
-                pos = [center - int(p_w / step_coef), i - int(width / 2)]
-    elif dir == 3:
-        for i in range(center - int(p_w), center + int(p_w)):
-            if local_area[i, center + int(p_w)] == 1:
-                width += 1
-                pos = [i - int(width / 2), center + int(p_w / step_coef)]
-    if width == 0:
-        return np.array([0, 0])
-    else:
-        return np.array(pos)
-
-
-def reset():
-    global ENABLE, path, pathWidth, pathWidth_bottom, n_shot, n_nodes
-    ENABLE = False
-    pathWidth = 0
-    pathWidth_bottom = 0
-    path = np.ones([50, 7], dtype=np.int16)
-    n_nodes = 0
-    n_shot = 0
+                img_f[i:i + size[0], j : j + size[1]] = np.zeros(size, np.int32)
+    return img_f
 
 
 def intoGrayScale(im, add_noise=False):
@@ -146,20 +78,104 @@ def binary(im, treshold=0.5):
     return binaryIm
 
 
+def count_nods(im, corners, down, left, up, right):
+    n = 0
+    if corners:
+        n += im[center - pathWidth, center - pathWidth] + im[center - pathWidth, center + pathWidth] + im[
+            center + pathWidth, center - pathWidth] + im[center + pathWidth, center + pathWidth]
+    if down:
+        n += im[center + pathWidth, center]
+    if left:
+        n += im[center, center - pathWidth]
+    if up:
+        n += im[center - pathWidth, center]
+    if right:
+        n += im[center, center + pathWidth]
+    return n
 
 
-ENABLE = False  # true if all labyrinth parameters defined and img is static
-FOUND = False
-MEMORY_CAPACITY = 31
-center = int((MEMORY_CAPACITY - 1) / 2)
-# cur_dir = 0
-step_coef = 1
-path = np.ones([50, 7], dtype=np.int16)
-# [0,1] - coordinated, [2] - move dir when node was append, [3:6] - possible dirs
+def check_possible_direction(local_area, cur_dir, possible_dirs=[1, 1, 1, 1]):
+    if count_nods(local_area,True,False,False,False,False) == 0:
+        try:
+            if any(define_next_point(local_area, dirs[cur_dir - 1]) != [center, center]) and possible_dirs[
+                dirs[cur_dir - 1]] != 0:
+                return dirs[cur_dir - 1], define_next_point(local_area, dirs[cur_dir - 1])
+            elif any(define_next_point(local_area, dirs[cur_dir]) != [center, center]) and possible_dirs[
+                dirs[cur_dir]] != 0:
+                return dirs[cur_dir], define_next_point(local_area, dirs[cur_dir])
+            elif any(define_next_point(local_area, dirs[cur_dir + 1]) != [center, center]) and possible_dirs[
+                dirs[cur_dir + 1]] != 0:
+                return dirs[cur_dir + 1], define_next_point(local_area, dirs[cur_dir + 1])
+            else:
+                return -1,[center,center]
+        except:
+            if any(define_next_point(local_area, dirs[cur_dir - 1]) != [center, center]) and possible_dirs[
+                dirs[cur_dir - 1]] != 0:
+                return dirs[cur_dir - 1], define_next_point(local_area, dirs[cur_dir - 1])
+            elif any(define_next_point(local_area, dirs[cur_dir]) != [center, center]) and possible_dirs[
+                dirs[cur_dir]] != 0:
+                return dirs[cur_dir], define_next_point(local_area, dirs[cur_dir])
+            elif any(define_next_point(local_area, dirs[cur_dir - 3]) != [center, center]) and possible_dirs[
+                dirs[cur_dir - 3]] != 0:
+                return dirs[cur_dir - 3], define_next_point(local_area, dirs[cur_dir - 3])
+            else:
+                return -1,[center,center]
 
-n_nodes = 0
+    else:
+        return cur_dir, define_next_point(local_area, dirs[cur_dir])
+
+
+def define_next_point(local_area, dir):
+    width = 0
+    pos = [center, center]
+
+    if dir == 0:  # down
+        for i in range(center - int(pathWidth), center + int(pathWidth)):
+            if local_area[center + int(pathWidth), i] == 1:
+                width += 1
+                pos = [center + int(pathWidth / step_coef) + 1, i - int(width / 2) + 1]
+    elif dir == 1:  # left
+        for i in range(center - int(pathWidth), center + int(pathWidth)):
+            if local_area[i, center - int(pathWidth)] == 1:
+                width += 1
+                pos = [i - int(width / 2), center - int(pathWidth / step_coef)]
+    elif dir == 2:  # up
+        for i in range(center - int(pathWidth), center + int(pathWidth)):
+            if local_area[center - int(pathWidth), i] == 1:
+                width += 1
+                pos = [center - int(pathWidth / step_coef), i - int(width / 2)]
+    elif dir == 3:
+        for i in range(center - int(pathWidth), center + int(pathWidth)):
+            if local_area[i, center + int(pathWidth)] == 1:
+                width += 1
+                pos = [i - int(width / 2), center + int(pathWidth / step_coef)]
+    return np.array(pos)
+
+
+def reset():
+    global ENABLE, FOUND,path, pathWidth, pathWidth_bottom, n_shot, n_nodes
+    FOUND = False
+    ENABLE = False
+    # NODE_ZONE = False
+    pathWidth = 0
+    pathWidth_bottom = 0
+    path = np.ones([100, 7], dtype=np.int16)
+    n_nodes = 0
+    n_shot = 0
+
 
 if __name__ == '__main__':
+    ENABLE = False  # True if all labyrinth parameters defined and img is static
+    FOUND = False  # True when in last path point
+    # NODE_ZONE = False  # to prevent double nodes
+    MEMORY_CAPACITY = 31
+    center = int((MEMORY_CAPACITY - 1) / 2)
+    # cur_dir = 0
+    step_coef = 2
+    path = np.ones([100, 7], dtype=np.int16)
+    # [0,1] - coordinated, [2] - move dir when node was append, [3:6] - possible dirs
+
+    n_nodes = 0
 
     # img = plt.imread('labyrint.png')
     img = plt.imread('shots/shot5.png')
@@ -169,14 +185,17 @@ if __name__ == '__main__':
     pathWidth = 0
     pathWidth_bottom = 0
     n_shot = 0
+    a=0
+    b= [0,0]
 
-    while n_shot <= 100000:
+    while n_shot <= 1000000:
         img_out = np.array(img).copy()
         # ====================================
         # Define labyrinth parameters
         # ====================================
         if not ENABLE:  # define labirint parameters
             # scan image with
+
             for y_block in range(0, img_out.shape[0] - MEMORY_CAPACITY):  # цикл по блокам из-за ограничения памяти
                 for x_block in range(0, img_out.shape[1] - MEMORY_CAPACITY):
                     if y_block == 0 and img_out[0, x_block + center] == 1:
@@ -189,88 +208,105 @@ if __name__ == '__main__':
 
                     else:
                         pass
-            if check_straight(
-                    img_out[path[n_nodes][0] - center:path[n_nodes][0] + center - 1,
-                    path[n_nodes][1] - center:path[n_nodes][1] + center - 1], pathWidth):
+            n_nodes += 1
+            path[1] = path[0]
+            if np.abs(pathWidth - pathWidth_bottom) < 4 and pathWidth != 0 and (
+                            pathWidth * 2 + 1) < MEMORY_CAPACITY:
+                pathWidth = int((pathWidth + pathWidth_bottom) / 2)
 
-                n_nodes += 1
-                path[1] = path[0]
-                if np.abs(pathWidth - pathWidth_bottom) < 4 and pathWidth != 0 and (
-                                pathWidth * 2 + 1) < MEMORY_CAPACITY:
-                    pathWidth = int((pathWidth + pathWidth_bottom) / 2)
+                # f_node_corners = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                # f_node_corners[center - pathWidth, center - pathWidth] = 1
+                # f_node_corners[center + pathWidth, center - pathWidth] = 1
+                # f_node_corners[center - pathWidth, center + pathWidth] = 1
+                # f_node_corners[center + pathWidth, center + pathWidth] = 1
 
-                    f_node = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
-                    f_node[center - pathWidth, center] = 1
-                    f_node[center + pathWidth, center] = 1
-                    f_node[center, center - pathWidth] = 1
-                    f_node[center, center + pathWidth] = 1
-
-                    f_node2 = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
-                    f_node2[center - pathWidth, center - pathWidth] = 1
-                    f_node2[center + pathWidth, center - pathWidth] = 1
-                    f_node2[center - pathWidth, center + pathWidth] = 1
-                    f_node2[center + pathWidth, center + pathWidth] = 1
-
-                    img_out[path[0, 0]: pathWidth,
-                    path[0, 1] - int(pathWidth / 2):path[0, 1] + int(pathWidth / 2)] = 2
-                    ENABLE = True
-                else:
-                    pass
+                # f_node_h = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                # f_node_h[center, center - pathWidth] = 1
+                # f_node_h[center, center + pathWidth] = 1
+                #
+                # f_node_v = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                # f_node_v[center - pathWidth, center] = 1
+                # f_node_v[center + pathWidth, center] = 1
+                #
+                # f_node = f_node_h + f_node_v
+                img_out[path[0, 0]: pathWidth,
+                path[0, 1] - int(pathWidth / 2):path[0, 1] + int(pathWidth / 2)] = 2
+                ENABLE = True
+            else:
+                pass
 
         # ====================================
         # If parameters defined, try to STEP
         # ====================================
         else:
-            localStart = path[0][:2];
-            localPathWidth = 0;
+            # localStart = path[0][:2];
+            # localPathWidth = 0;
             # Scan over the image, paint lines between nodes and find last point
+
             for y_block in range(0, img.shape[0] - MEMORY_CAPACITY):  # цикл по блокам из-за ограничения памяти
                 for x_block in range(0, img.shape[1] - MEMORY_CAPACITY):
-                    if y_block == 0 and img_out[0, x_block + center] == 1:
-                        localPathWidth += 1
-                        localStart = [center, x_block + center - (int)(pathWidth / 2)]
+
+                    # check if smth changed
+                    if all([y_block+center, x_block+center] == path[0][:2]) and img_out[y_block+center, x_block+center] == 0:
+                        reset()
 
                     # if in last path point
                     if all([y_block + center, x_block + center] == path[n_nodes][:2]):
                         FOUND = True
                         local_area = img_out[y_block:y_block + MEMORY_CAPACITY, x_block: x_block + MEMORY_CAPACITY]
-
                         # Check deadend
-                        if check_possible_direction(local_area, path[n_nodes][2], pathWidth, f_node2, path[n_nodes][3:]) == -1 or \
-                                        local_area[center, center] == 0:
-                            path[n_nodes] = path[n_nodes - 1]
+                        a,b = check_possible_direction(local_area, path[n_nodes][2],path[n_nodes][3:])
+                        b += np.array([y_block, x_block])
+                        if check_possible_direction(local_area, path[n_nodes][2],
+                                                    path[n_nodes][3:])[0] == -1 or count_nods(local_area,False,True,True,True,True) == 1:
+                            # if all(define_next_point(local_area, path[n_nodes][2]) == [0, 0]):
                             n_nodes -= 1
-                            path[n_nodes + 2] = [1] * 7
-                        elif check_straight(local_area, pathWidth):
-                            path[n_nodes][:2] = define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
+                            path[n_nodes + 1] = [1] * 7
+
+                        # Check streight
+                        elif count_nods(local_area, True, False, True, False, True) == 0 or (
+                                    count_nods(local_area, True, True, False, True, False) == 0):
+                            path[n_nodes][:2] = define_next_point(local_area, path[n_nodes][2]) + np.array(
                                 [y_block, x_block])
                             path[n_nodes][3:] = [1, 1, 1, 1]
-                        elif sum(sum(local_area * f_node2)) != 0:
+
+                        # continue after/before node
+                        elif count_nods(local_area, True, False, False, False, False) != 0:
                             path[n_nodes][path[n_nodes][2] % 2] = \
-                                (define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
+                                (define_next_point(local_area, path[n_nodes][2]) + np.array(
                                     [y_block, x_block]))[
                                     path[n_nodes][2] % 2]
                             path[n_nodes][3:] = [1, 1, 1, 1]
 
+                        # перекресток или поворот
                         else:
-
+                            step_coef = 1
                             n_nodes += 1
-                            path[n_nodes][:4] = path[n_nodes - 1][:4]
-                            path[n_nodes][2], path[n_nodes][:2] = check_possible_direction(local_area, path[n_nodes][2],
-                                                                                           pathWidth, f_node2, path[n_nodes][3:])
+                            path[n_nodes][:] = path[n_nodes - 1][:]
+                            path[n_nodes][2], path[n_nodes][:2] = check_possible_direction(local_area,
+                                                                                           path[n_nodes][2],
+                                                                                           path[n_nodes][3:])
                             path[n_nodes][:2] += np.array([y_block, x_block])
                             path[n_nodes - 1][3 + path[n_nodes][2]] = 0
-                            # path[n_nodes][3:] = [1, 1, 1, 1]
+                            try:
+                                path[n_nodes - 1][3 + path[n_nodes-1][2]+2] = 0
+                            except:
+                                path[n_nodes - 1][3 + path[n_nodes - 1][2] - 2] = 0
+                            step_coef = 2
+
                     if FOUND:
                         break
-                if sum(localStart - path[0][:2]) > 3:
-                    reset()
 
                 if FOUND:
                     FOUND = False
                     break
 
-        if (img.shape[0] - path[n_nodes, 0]) < pathWidth:
+        # if smth goes wrong and agent returned to start
+        if all(path[n_nodes] == path[0]) and n_nodes != 1:
+            reset()
+
+        # if maze done
+        if path[n_nodes][0] >= img_out.shape[0] - 2*pathWidth:
             reset()
 
         plt.clf()
@@ -280,7 +316,7 @@ if __name__ == '__main__':
         n_shot += 1
         start_time = time.time()
         plt.imshow(img_out)
-        plt.title(str(n_nodes))
+        plt.title('dir: {0}, coord: {1}'.format(a,b))
         plt.draw()
         plt.pause(0.001)
 

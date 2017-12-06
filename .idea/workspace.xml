@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3dfc0c45-15c5-4200-897e-1c97c570347e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shot4_initial_processing.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shots/WIN_20170928_18_07_07_Pro.jpg" afterPath="$PROJECT_DIR$/shots/WIN_20170928_18_07_07_Pro.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shots/shot5.png" afterPath="$PROJECT_DIR$/shots/shot5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Labirint_path_finder_FPGA.iml" afterPath="$PROJECT_DIR$/.idea/Labirint_path_finder_FPGA.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/realtime_path_finder.py" afterPath="$PROJECT_DIR$/realtime_path_finder.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/skeleton_path_finder.py" afterPath="$PROJECT_DIR$/skeleton_path_finder.py" />
@@ -17,16 +20,46 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="realtime_path_finder.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
+      <file leaf-file-name="skeleton_path_finder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="950">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="25">
+              <caret line="190" column="27" lean-forward="false" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#1447#3115#0" expanded="false" />
-                <element signature="e#3167#4255#0" expanded="false" />
+                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#1414#1711#0" expanded="false" />
+                <element signature="e#1748#2096#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="morphology.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/scipy/ndimage/morphology.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8800">
+              <caret line="357" column="34" lean-forward="false" selection-start-line="357" selection-start-column="34" selection-end-line="357" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="path_finder.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/path_finder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/codecs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7700">
+              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -56,15 +89,16 @@
       <list>
         <option value="$PROJECT_DIR$/path_finder_test.py" />
         <option value="$PROJECT_DIR$/path_finder.py" />
-        <option value="$PROJECT_DIR$/skeleton_path_finder.py" />
         <option value="$PROJECT_DIR$/realtime_path_finder.py" />
+        <option value="$PROJECT_DIR$/skeleton_path_finder.py" />
+        <option value="$PROJECT_DIR$/final_script.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-11" />
     <option name="y" value="-11" />
-    <option name="width" value="1942" />
+    <option name="width" value="1934" />
     <option name="height" value="1042" />
   </component>
   <component name="ProjectView">
@@ -83,6 +117,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -97,7 +132,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -121,7 +155,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.realtime_path_finder">
+  <component name="RunManager" selected="Python.final_script">
     <configuration default="false" name="path_finder" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -135,24 +169,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Labirint_path_finder_FPGA" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/path_finder.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="path_finder_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Labirint_path_finder_FPGA" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/path_finder_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -207,6 +223,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Labirint_path_finder_FPGA" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/skeleton_path_finder.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="final_script" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Labirint_path_finder_FPGA" />
+      <option name="SCRIPT_NAME" value="C:\Users\metel\PycharmProjects\Labirint_path_finder_FPGA\skeleton_path_finder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,18 +312,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.path_finder" />
-      <item index="1" class="java.lang.String" itemvalue="Python.path_finder_test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
-      <item index="3" class="java.lang.String" itemvalue="Python.CameraUpdate" />
-      <item index="4" class="java.lang.String" itemvalue="Python.skeleton_path_finder" />
+      <item index="1" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
+      <item index="2" class="java.lang.String" itemvalue="Python.CameraUpdate" />
+      <item index="3" class="java.lang.String" itemvalue="Python.skeleton_path_finder" />
+      <item index="4" class="java.lang.String" itemvalue="Python.final_script" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
+        <item index="0" class="java.lang.String" itemvalue="Python.final_script" />
         <item index="1" class="java.lang.String" itemvalue="Python.skeleton_path_finder" />
-        <item index="2" class="java.lang.String" itemvalue="Python.path_finder" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CameraUpdate" />
-        <item index="4" class="java.lang.String" itemvalue="Python.path_finder_test" />
+        <item index="2" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
+        <item index="3" class="java.lang.String" itemvalue="Python.path_finder" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CameraUpdate" />
       </list>
     </recent_temporary>
   </component>
@@ -307,19 +341,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <frame x="-11" y="-11" width="1934" height="1042" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22648649" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13843648" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293124" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32818073" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4470868" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37725225" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43995243" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1606949" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -336,34 +370,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/skeleton_path_finder.py</url>
-          <line>272</line>
-          <option name="timeStamp" value="357" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/realtime_path_finder.py</url>
-          <line>241</line>
-          <option name="timeStamp" value="375" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/realtime_path_finder.py</url>
-          <line>173</line>
-          <option name="timeStamp" value="378" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/realtime_path_finder.py</url>
-          <line>175</line>
-          <option name="timeStamp" value="379" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/realtime_path_finder.py</url>
-          <line>196</line>
-          <option name="timeStamp" value="380" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/realtime_path_finder.py</url>
-          <line>166</line>
-          <option name="timeStamp" value="406" />
+          <url>file://$PROJECT_DIR$/path_finder.py</url>
+          <option name="timeStamp" value="552" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -373,32 +381,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="410" />
+      <option name="time" value="559" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CameraUpdate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/numpy/core/numeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3250">
@@ -608,20 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="180" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/site-packages/matplotlib/pyplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22475">
-          <caret line="949" column="0" lean-forward="false" selection-start-line="949" selection-start-column="0" selection-end-line="949" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/site-packages/numpy/lib/function_base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36600">
@@ -636,40 +609,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
+    <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/site-packages/matplotlib/text.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1400">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#172#775#0" expanded="false" />
-            <element signature="e#819#1212#0" expanded="false" />
-            <element signature="e#1312#2980#0" expanded="false" />
-            <element signature="e#3032#4120#0" expanded="false" />
-            <element signature="e#4140#4342#0" expanded="false" />
-            <element signature="e#4389#4686#0" expanded="false" />
-            <element signature="e#4723#5071#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="177">
+          <caret line="241" column="0" lean-forward="false" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/codecs.py">
+    <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/site-packages/matplotlib/pyplot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="177">
+          <caret line="1464" column="0" lean-forward="false" selection-start-line="1464" selection-start-column="0" selection-end-line="1464" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="4425">
+          <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="196" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6150">
+          <caret line="248" column="80" lean-forward="false" selection-start-line="247" selection-start-column="27" selection-end-line="248" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ENVS/openCV3/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7700">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/scipy/ndimage/morphology.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8800">
+          <caret line="357" column="34" lean-forward="false" selection-start-line="357" selection-start-column="34" selection-end-line="357" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="190" column="27" lean-forward="false" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#1447#3115#0" expanded="false" />
-            <element signature="e#3167#4255#0" expanded="false" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#1414#1711#0" expanded="false" />
+            <element signature="e#1748#2096#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/path_finder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

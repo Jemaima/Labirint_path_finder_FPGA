@@ -4,13 +4,15 @@ import time
 import matplotlib.pyplot as plt
 
 dirs = [0, 1, 2, 3]
+
+
 # 0 - down
 # 1 - left
 # 2 - up
 # 3 - right
 
 
-def check_borders(y_block,x_block):
+def check_borders(y_block, x_block):
     global borders
     if y_block == 0:
         # check upper left corner
@@ -107,7 +109,7 @@ def reset():
     pathWidth_bottom = 0
     path = np.ones([50, 7], dtype=np.int16)
     n_nodes = 0
-    cv2.imshow('frame', gray)
+    # cv2.imshow('frame', gray)
 
 
 ENABLE = False  # true if all labyrinth parameters defined and img is static
@@ -115,7 +117,7 @@ FOUND = False
 MEMORY_CAPACITY = 31
 center = int((MEMORY_CAPACITY - 1) / 2)
 # cur_dir = 0
-step_coef = 1
+step_coef = 2
 path = np.ones([50, 7], dtype=np.int8)
 # [0,1] - coordinated, [2] - move dir when node was append, [3:6] - possible dirs
 
@@ -130,13 +132,12 @@ cap = cv2.VideoCapture('lab.mp4')
 pathWidth = 0
 pathWidth_bottom = 0
 n_shot = 0
-borders = [0,0,0,0]
+borders = [0, 0, 0, 0]
+# cap.set(0,500)
 
 while (cap.isOpened()):
-    n_shot +=1
+    n_shot += 1
     start = time.time()
-
-
     ret, img = cap.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, gray = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
@@ -160,32 +161,40 @@ while (cap.isOpened()):
                         pathWidth_bottom += 1
                 else:
                     pass
-        if pathWidth == 0 or pathWidth * 2 + 1 > MEMORY_CAPACITY or np.abs(pathWidth - pathWidth_bottom) > 4 or any(borders)==1:
+        if pathWidth == 0 or pathWidth > center or np.abs(pathWidth - pathWidth_bottom) > 4 or any(borders) == 1:
             # plt.imshow(img_out/2)
             # fig.canvas.draw()
             reset()
         else:
             if check_straight(
-                img_out[path[n_nodes][0] - center:path[n_nodes][0] + center - 1,
-                path[n_nodes][1] - center:path[n_nodes][1] + center - 1], pathWidth):
-
+                    img_out[path[n_nodes][0] - center:path[n_nodes][0] + center + 1,
+                    path[n_nodes][1] - center:path[n_nodes][1] + center + 1], pathWidth):
                 n_nodes += 1
                 path[1] = path[0]
                 # if np.abs(pathWidth - pathWidth_bottom) < 4 and pathWidth != 0 and (
                 #                 pathWidth * 2 + 1) < MEMORY_CAPACITY:
                 pathWidth = np.int8((pathWidth + pathWidth_bottom) / 2)
 
-                f_node = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
-                f_node[center - pathWidth, center] = 1
-                f_node[center + pathWidth, center] = 1
-                f_node[center, center - pathWidth] = 1
-                f_node[center, center + pathWidth] = 1
+                # f_node[center - pathWidth, center] = 1
+                # f_node[center + pathWidth, center] = 1
+                # f_node[center, center - pathWidth] = 1
+                # f_node[center, center + pathWidth] = 1
 
-                f_node2 = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
-                f_node2[center - pathWidth, center - pathWidth] = 1
-                f_node2[center + pathWidth, center - pathWidth] = 1
-                f_node2[center - pathWidth, center + pathWidth] = 1
-                f_node2[center + pathWidth, center + pathWidth] = 1
+                f_node_corners = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                f_node_corners[center - pathWidth, center - pathWidth] = 1
+                f_node_corners[center + pathWidth, center - pathWidth] = 1
+                f_node_corners[center - pathWidth, center + pathWidth] = 1
+                f_node_corners[center + pathWidth, center + pathWidth] = 1
+
+                f_node_h = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                f_node_h[center, center - pathWidth] = 1
+                f_node_h[center, center + pathWidth] = 1
+
+                f_node_v = np.zeros((MEMORY_CAPACITY, MEMORY_CAPACITY))
+                f_node_v[center - pathWidth, center] = 1
+                f_node_v[center + pathWidth, center] = 1
+
+                f_node = f_node_h + f_node_v
 
                 img_out[path[0, 0]: pathWidth,
                 path[0, 1] - int(pathWidth / 2):path[0, 1] + int(pathWidth / 2)] = 2
@@ -210,29 +219,39 @@ while (cap.isOpened()):
                     local_area = img_out[y_block:y_block + MEMORY_CAPACITY, x_block: x_block + MEMORY_CAPACITY]
 
                     # Check deadend
-                    if check_possible_direction(local_area, path[n_nodes][2], pathWidth, f_node2,
+                    if check_possible_direction(local_area, path[n_nodes][2], pathWidth, f_node_corners,
                                                 path[n_nodes][3:]) == -1 or \
                                     local_area[center, center] == 0:
-                        path[n_nodes] = path[n_nodes - 1]
                         n_nodes -= 1
-                        path[n_nodes + 2] = [1] * 7
-                    elif check_straight(local_area, pathWidth):
+                        path[n_nodes + 1] = [1] * 7
+                    # elif check_straight(local_area, pathWidth):
+                    #     path[n_nodes][:2] = define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
+                    #         [y_block, x_block])
+                    #     path[n_nodes][3:] = [1, 1, 1, 1]
+                    # elif sum(sum(local_area * f_node2)) != 0:
+                    #     path[n_nodes][path[n_nodes][2] % 2] = \
+                    #         (define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
+                    #             [y_block, x_block]))[
+                    #             path[n_nodes][2] % 2]
+                    #     path[n_nodes][3:] = [1, 1, 1, 1]
+                    elif (sum(sum(local_area * (f_node_h + f_node_corners))) == 2 and sum(sum(local_area * (f_node_h + f_node_corners))) == 0) or (
+                            sum(sum(local_area * (f_node_h + f_node_corners))) == 2 and sum(sum(local_area * (f_node_h + f_node_corners))) == 0):
                         path[n_nodes][:2] = define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
                             [y_block, x_block])
                         path[n_nodes][3:] = [1, 1, 1, 1]
-                    elif sum(sum(local_area * f_node2)) != 0:
+                    elif sum(sum(local_area * f_node_corners)) != 0:
                         path[n_nodes][path[n_nodes][2] % 2] = \
                             (define_next_point(local_area, path[n_nodes][2], pathWidth) + np.array(
                                 [y_block, x_block]))[
                                 path[n_nodes][2] % 2]
                         path[n_nodes][3:] = [1, 1, 1, 1]
-
                     else:
-
                         n_nodes += 1
-                        path[n_nodes][:4] = path[n_nodes - 1][:4]
-                        path[n_nodes][2], path[n_nodes][:2] = check_possible_direction(local_area, path[n_nodes][2],
-                                                                                       pathWidth, f_node2,
+                        path[n_nodes][:] = path[n_nodes - 1][:]
+                        path[n_nodes][2], path[n_nodes][:2] = check_possible_direction(local_area,
+                                                                                       path[n_nodes][2],
+                                                                                       pathWidth,
+                                                                                       f_node_corners,
                                                                                        path[n_nodes][3:])
                         path[n_nodes][:2] += np.array([y_block, x_block])
                         path[n_nodes - 1][3 + path[n_nodes][2]] = 0
@@ -252,9 +271,13 @@ while (cap.isOpened()):
     print('Frame {0} was processed in {1:.3f} seconds'.format(n_shot, time.time() - start))
     img_out[path[n_nodes, 0] - int(pathWidth / 2): path[n_nodes, 0] + int(pathWidth / 2),
     path[n_nodes, 1] - int(pathWidth / 2):path[n_nodes, 1] + int(pathWidth / 2)] = 2
-    cv2.imshow('frame', gray)
-    # plt.imshow(img_out)
-    # fig.canvas.draw()
+
+    # cv2.imshow('frame', img_out*127)
+    if n_shot > 185:
+        plt.imshow(img_out)
+        plt.title(str(n_nodes))
+        plt.draw()
+        plt.pause(0.001)
 
 cap.release()
 cv2.destroyAllWindows()
