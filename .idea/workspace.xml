@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3dfc0c45-15c5-4200-897e-1c97c570347e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shots/WIN_20170928_18_07_07_Pro.jpg" afterPath="$PROJECT_DIR$/shots/WIN_20170928_18_07_07_Pro.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shots/shot5.png" afterPath="$PROJECT_DIR$/shots/shot5.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Labirint_path_finder_FPGA.iml" afterPath="$PROJECT_DIR$/.idea/Labirint_path_finder_FPGA.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CameraUpdate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/shot4_solved.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/path_finder.py" afterPath="$PROJECT_DIR$/sleaees_painting_method.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/realtime_path_finder.py" afterPath="$PROJECT_DIR$/realtime_path_finder.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/skeleton_path_finder.py" afterPath="$PROJECT_DIR$/skeleton_path_finder.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,10 +20,12 @@
       <file leaf-file-name="skeleton_path_finder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="190" column="27" lean-forward="false" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
+            <state relative-caret-position="225">
+              <caret line="225" column="17" lean-forward="true" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#223#875#0" expanded="false" />
+                <element signature="e#926#1367#0" expanded="false" />
                 <element signature="e#1414#1711#0" expanded="false" />
                 <element signature="e#1748#2096#0" expanded="false" />
               </folding>
@@ -37,19 +36,40 @@
       <file leaf-file-name="morphology.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/scipy/ndimage/morphology.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8800">
+            <state relative-caret-position="25">
               <caret line="357" column="34" lean-forward="false" selection-start-line="357" selection-start-column="34" selection-end-line="357" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="path_finder.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/path_finder.py">
+      <file leaf-file-name="sleaees_painting_method.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1050">
+              <caret line="116" column="20" lean-forward="false" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#109#406#0" expanded="false" />
+                <element signature="e#927#1400#0" expanded="false" />
+                <element signature="e#1437#1785#0" expanded="false" />
+                <element signature="e#1437#1615#1" expanded="false" />
+                <element signature="e#1823#2198#0" expanded="false" />
+                <element signature="e#2271#3174#0" expanded="false" />
+                <marker date="1519117481177" expanded="true" signature="3541:3703" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="realtime_path_finder.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1575">
+              <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="196" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,17 +108,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/path_finder_test.py" />
-        <option value="$PROJECT_DIR$/path_finder.py" />
         <option value="$PROJECT_DIR$/realtime_path_finder.py" />
         <option value="$PROJECT_DIR$/skeleton_path_finder.py" />
         <option value="$PROJECT_DIR$/final_script.py" />
+        <option value="$PROJECT_DIR$/path_finder.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-11" />
     <option name="y" value="-11" />
-    <option name="width" value="1934" />
+    <option name="width" value="1942" />
     <option name="height" value="1042" />
   </component>
   <component name="ProjectView">
@@ -117,7 +137,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -132,6 +151,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -155,7 +175,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.final_script">
+  <component name="RunManager" selected="Python.path_finder">
     <configuration default="false" name="path_finder" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -168,7 +188,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Labirint_path_finder_FPGA" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/path_finder.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\metel\PycharmProjects\Labirint_path_finder_FPGA\sleaees_painting_method.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -319,11 +339,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.final_script" />
+        <item index="0" class="java.lang.String" itemvalue="Python.path_finder" />
         <item index="1" class="java.lang.String" itemvalue="Python.skeleton_path_finder" />
-        <item index="2" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
-        <item index="3" class="java.lang.String" itemvalue="Python.path_finder" />
-        <item index="4" class="java.lang.String" itemvalue="Python.CameraUpdate" />
+        <item index="2" class="java.lang.String" itemvalue="Python.CameraUpdate" />
+        <item index="3" class="java.lang.String" itemvalue="Python.final_script" />
+        <item index="4" class="java.lang.String" itemvalue="Python.realtime_path_finder" />
       </list>
     </recent_temporary>
   </component>
@@ -341,9 +361,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1934" height="1042" extended-state="0" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13843648" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29135135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -353,7 +373,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43995243" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1606949" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -370,8 +390,23 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/path_finder.py</url>
+          <url>file://$PROJECT_DIR$/sleaees_painting_method.py</url>
           <option name="timeStamp" value="552" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/skeleton_path_finder.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="561" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sleaees_painting_method.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="562" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sleaees_painting_method.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="564" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -381,7 +416,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="559" />
+      <option name="time" value="565" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -393,7 +428,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -421,7 +456,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -449,7 +484,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -477,7 +512,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -505,7 +540,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -519,35 +554,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2025">
           <caret line="84" column="35" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="35" />
@@ -559,7 +594,7 @@
     <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/numpy/core/numeric.py" />
     <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/codecs.py" />
     <entry file="file://$PROJECT_DIR$/path_finder_test.py" />
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -569,7 +604,7 @@
     <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/357640022/numpy/core/multiarray.py" />
     <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/numpy/core/numeric.py" />
     <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/codecs.py" />
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -585,13 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3250">
           <caret line="149" column="4" lean-forward="false" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CameraUpdate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -623,13 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4425">
-          <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="196" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6150">
@@ -645,31 +666,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/scipy/ndimage/morphology.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8800">
-          <caret line="357" column="34" lean-forward="false" selection-start-line="357" selection-start-column="34" selection-end-line="357" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/skeleton_path_finder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="190" column="27" lean-forward="false" selection-start-line="190" selection-start-column="27" selection-end-line="190" selection-end-column="27" />
+        <state relative-caret-position="225">
+          <caret line="225" column="17" lean-forward="true" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#223#875#0" expanded="false" />
+            <element signature="e#926#1367#0" expanded="false" />
             <element signature="e#1414#1711#0" expanded="false" />
             <element signature="e#1748#2096#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/path_finder.py">
+    <entry file="file://$PROJECT_DIR$/../ENVS/rehabunculus/Lib/site-packages/scipy/ndimage/morphology.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="25">
+          <caret line="357" column="34" lean-forward="false" selection-start-line="357" selection-start-column="34" selection-end-line="357" selection-end-column="49" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleaees_painting_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="116" column="20" lean-forward="false" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#109#406#0" expanded="false" />
+            <element signature="e#927#1400#0" expanded="false" />
+            <element signature="e#1437#1785#0" expanded="false" />
+            <element signature="e#1437#1615#1" expanded="false" />
+            <element signature="e#1823#2198#0" expanded="false" />
+            <element signature="e#2271#3174#0" expanded="false" />
+            <marker date="1519117481177" expanded="true" signature="3541:3703" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CameraUpdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realtime_path_finder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="196" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
